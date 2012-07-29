@@ -3527,6 +3527,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
+            case KeyEvent.KEYCODE_BACK: {
+                if (down) {
+                    if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL, 0) == 1) {
+                        ITelephony telephonyService = getTelephonyService();
+                        if (telephonyService != null) {
+                            try {
+                                telephonyService.showCallScreen();
+                                telephonyService.endCall();
+                            }
+                            catch (RemoteException ex) {
+                                Log.w(TAG, "ITelephony threw RemoteException" + ex);
+                            }
+                        }
+                    }
+                }
+                break;
+            }
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_MUTE: {
