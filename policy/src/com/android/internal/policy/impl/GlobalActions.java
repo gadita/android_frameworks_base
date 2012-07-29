@@ -109,6 +109,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mEnableReboot = true;
     private boolean mEnableScreenshot = true;
     private boolean mEnableAirplane = true;
+    private boolean mEnableRinger = true;
 
     private IWindowManager mIWindowManager;
     private Profile mChosenProfile;
@@ -118,7 +119,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     mEnableReboot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_REBOOT, 1) == 1;
     mEnableScreenshot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1;
     mEnableAirplane = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1;
-
+    mEnableRinger = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_RINGER, 1) == 1;
     /**
      * @param context everything needs a context :(
      */
@@ -363,8 +364,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
         }
 
-        // last: silent mode
-        if (SHOW_SILENT_TOGGLE) {
+        // last: silent mode - only shown if enabled, which is true by default
+        if (mEnableRinger && SHOW_SILENT_TOGGLE) {
             mItems.add(mSilentModeAction);
         }
 

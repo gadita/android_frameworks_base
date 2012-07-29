@@ -1164,6 +1164,12 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_AIRPLANE = "power_dialog_show_airplane";
 
         /**
+         * Ringer mode show/hide
+         * @hide
+         */
+        public static final String POWER_DIALOG_SHOW_RINGER = "power_dialog_show_ringer";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
