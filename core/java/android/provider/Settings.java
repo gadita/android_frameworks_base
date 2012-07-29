@@ -1152,6 +1152,12 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_REBOOT = "power_dialog_show_reboot";
 
         /**
+         * Screenshot show/hide
+         * @hide
+         */
+        public static final String POWER_DIALOG_SHOW_SCREENSHOT = "power_dialog_show_screenshot";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
