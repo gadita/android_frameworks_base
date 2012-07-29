@@ -110,6 +110,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mEnableScreenshot = true;
     private boolean mEnableAirplane = true;
     private boolean mEnableRinger = true;
+    private boolean mEnableTitle = true;
 
     private IWindowManager mIWindowManager;
     private Profile mChosenProfile;
@@ -120,6 +121,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     mEnableScreenshot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1;
     mEnableAirplane = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1;
     mEnableRinger = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_RINGER, 1) == 1;
+    mEnableTitle = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_TITLE, 1) == 1;
+
     /**
      * @param context everything needs a context :(
      */
@@ -531,7 +534,10 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             mDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG);
         }
 
-        mDialog.setTitle(R.string.global_actions);
+        // title - only shown if enabled, which is true by default
+        if(mEnableTitle) {
+            mDialog.setTitle(R.string.global_actions);
+        }
 
         if (SHOW_SILENT_TOGGLE) {
             IntentFilter filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);

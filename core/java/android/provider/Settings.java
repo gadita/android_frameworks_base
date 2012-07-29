@@ -1170,6 +1170,12 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_RINGER = "power_dialog_show_ringer";
 
         /**
+         * Power Dialog Title show/hide
+         * @hide
+         */
+        public static final String POWER_DIALOG_SHOW_TITLE = "power_dialog_show_title";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
