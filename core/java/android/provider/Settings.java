@@ -1146,6 +1146,12 @@ public final class Settings {
         public static final String BACK_BUTTON_ENDS_CALL = "back_button_ends_call";
 
         /**
+         * Reboot show/hide
+         * @hide
+         */
+        public static final String POWER_DIALOG_SHOW_REBOOT = "power_dialog_show_reboot";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
