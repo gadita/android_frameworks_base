@@ -108,6 +108,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
     private boolean mEnableReboot = true;
     private boolean mEnableScreenshot = true;
+    private boolean mEnableAirplane = true;
 
     private IWindowManager mIWindowManager;
     private Profile mChosenProfile;
@@ -116,6 +117,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
     mEnableReboot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_REBOOT, 1) == 1;
     mEnableScreenshot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1;
+    mEnableAirplane = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1;
 
     /**
      * @param context everything needs a context :(
@@ -319,8 +321,10 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
         }
 
-        // next: airplane mode
-        mItems.add(mAirplaneModeOn);
+        // next: airplane mode - only shown if enabled, which is true by default
+        if(mEnableAirplane) {
+            mItems.add(mAirplaneModeOn);
+        }
 
         // next: users
         List<UserInfo> users = mContext.getPackageManager().getUsers();
