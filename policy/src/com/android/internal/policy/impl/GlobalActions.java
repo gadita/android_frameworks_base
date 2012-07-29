@@ -107,6 +107,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mHasVibrator;
 
     private boolean mEnableReboot = true;
+    private boolean mEnableScreenshot = true;
 
     private IWindowManager mIWindowManager;
     private Profile mChosenProfile;
@@ -114,6 +115,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private static final String SYSTEM_PROFILES_ENABLED = "system_profiles_enabled";
 
     mEnableReboot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_REBOOT, 1) == 1;
+    mEnableScreenshot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1;
 
     /**
      * @param context everything needs a context :(
@@ -299,21 +301,23 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
         }
 
-        // next: screenshot
-        mItems.add(
-            new SinglePressAction(R.drawable.ic_lock_screenshot, R.string.global_action_screenshot) {
-                public void onPress() {
-                    takeScreenshot();
-                }
+        // next: screenshot - only shown if enabled, which is true by default
+        if(mEnableScreenshot) {
+            mItems.add(
+                new SinglePressAction(R.drawable.ic_lock_screenshot, R.string.global_action_screenshot) {
+                    public void onPress() {
+                        takeScreenshot();
+                    }
 
-                public boolean showDuringKeyguard() {
-                    return true;
-                }
+                    public boolean showDuringKeyguard() {
+                        return true;
+                    }
 
-                public boolean showBeforeProvisioning() {
-                    return true;
-                }
-            });
+                    public boolean showBeforeProvisioning() {
+                        return true;
+                    }
+                });
+        }
 
         // next: airplane mode
         mItems.add(mAirplaneModeOn);
