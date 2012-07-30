@@ -106,22 +106,15 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mHasTelephony;
     private boolean mHasVibrator;
 
-    private boolean mEnableReboot = true;
-    private boolean mEnableScreenshot = true;
-    private boolean mEnableAirplane = true;
-    private boolean mEnableRinger = true;
-    private boolean mEnableTitle = true;
-
     private IWindowManager mIWindowManager;
     private Profile mChosenProfile;
 
     private static final String SYSTEM_PROFILES_ENABLED = "system_profiles_enabled";
-
-    mEnableReboot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_REBOOT, 1) == 1;
-    mEnableScreenshot = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1;
-    mEnableAirplane = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1;
-    mEnableRinger = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_RINGER, 1) == 1;
-    mEnableTitle = Settings.System.getInt(mContext.getContentResolver(), Settings.System.POWER_DIALOG_SHOW_TITLE, 1) == 1;
+    private static final String POWER_DIALOG_SHOW_REBOOT = "power_dialog_show_reboot";
+    private static final String POWER_DIALOG_SHOW_SCREENSHOT = "power_dialog_show_screenshot";
+    private static final String POWER_DIALOG_SHOW_AIRPLANE = "power_dialog_show_airplane";
+    private static final String POWER_DIALOG_SHOW_RINGER = "power_dialog_show_ringer";
+    private static final String POWER_DIALOG_SHOW_TITLE = "power_dialog_show_title";
 
     /**
      * @param context everything needs a context :(
@@ -263,7 +256,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             });
 
         // next: reboot - only shown if enabled, which is true by default
-        if(mEnableReboot) {
+        if (Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_REBOOT, 1) == 1) {
             mItems.add(
                 new SinglePressAction(R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
                     public void onPress() {
@@ -308,7 +301,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         // next: screenshot - only shown if enabled, which is true by default
-        if(mEnableScreenshot) {
+        if (Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1) {
             mItems.add(
                 new SinglePressAction(R.drawable.ic_lock_screenshot, R.string.global_action_screenshot) {
                     public void onPress() {
@@ -326,7 +319,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         // next: airplane mode - only shown if enabled, which is true by default
-        if(mEnableAirplane) {
+        if(Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_AIRPLANE, 1) == 1) {
             mItems.add(mAirplaneModeOn);
         }
 
@@ -368,7 +361,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         // last: silent mode - only shown if enabled, which is true by default
-        if (mEnableRinger && SHOW_SILENT_TOGGLE) {
+        if (Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_RINGER, 1) == 1 && SHOW_SILENT_TOGGLE) {
             mItems.add(mSilentModeAction);
         }
 
@@ -535,7 +528,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         // title - only shown if enabled, which is true by default
-        if(mEnableTitle) {
+        if(Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_TITLE, 1) == 1) {
             mDialog.setTitle(R.string.global_actions);
         }
 
