@@ -393,7 +393,8 @@ public class PhoneStatusBar extends BaseStatusBar {
     // ================================================================================
     // Constructing the view
     // ================================================================================
-    protected PhoneStatusBarView makeStatusBarView() {
+    protected PhoneStatusBarView 
+    makeStatusBarView() {
         final Context context = mContext;
 
         Resources res = context.getResources();
@@ -407,8 +408,14 @@ public class PhoneStatusBar extends BaseStatusBar {
         mMinBrightness = context.getResources().getInteger(
                 com.android.internal.R.integer.config_screenBrightnessDim);
 
-        mStatusBarWindow = (StatusBarWindowView) View.inflate(context,
+        if(Settings.System.getInt(mContext.getContentResolver(), Settings.System.CENTER_CLOCK_STATUS_BAR, 0) == 0) {
+            mStatusBarWindow = (StatusBarWindowView) View.inflate(context,
                 R.layout.super_status_bar, null);
+        }
+        else {
+            mStatusBarWindow = (StatusBarWindowView) View.inflate(context,
+                R.layout.super_status_bar_middle_clock, null);
+        }
         if (DEBUG) {
             mStatusBarWindow.setBackgroundColor(0x6000FF80);
         }
