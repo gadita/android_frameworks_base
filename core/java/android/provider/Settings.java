@@ -1152,6 +1152,12 @@ public final class Settings {
         public static final String BACK_BUTTON_ENDS_CALL = "back_button_ends_call";
 
         /**
+         * Home button answers call
+         * @hide
+         */
+        public static final String HOME_BUTTON_ANSWERS_CALL = "home_button_answers_call";
+
+        /**
          * Reboot show/hide
          * @hide
          */

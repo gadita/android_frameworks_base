@@ -3552,6 +3552,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
+            case KeyEvent.KEYCODE_HOME: {
+                if (down) {
+                    if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.HOME_BUTTON_ANSWERS_CALL, 0) == 1) {
+                        ITelephony telephonyService = getTelephonyService();
+                        if (telephonyService != null) {
+                            try {
+                                telephonyService.answerRingingCall();
+                            } catch (RemoteException ex) {
+                                Log.w(TAG, "ITelephony threw RemoteException" + ex);
+                            }
+                        }
+                    }
+                }
+                break;
+            }
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_MUTE: {
