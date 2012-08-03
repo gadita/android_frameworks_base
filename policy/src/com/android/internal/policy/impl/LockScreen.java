@@ -92,7 +92,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
     private int mCreationOrientation;
 
     private boolean mSilentMode;
-    private TextView jbmp;
     private AudioManager mAudioManager;
     private boolean mEnableMenuKeyInLockScreen;
 
@@ -642,12 +641,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
         mHasVibrator = vibrator == null ? false : vibrator.hasVibrator();
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mSilentMode = isSilentMode();
-
-        //JBMP
-        jbmp = (TextView) findViewById(R.id.jbmp);
-        jbmp.setVisibility(View.VISIBLE);
-        jbmp.setText("Jelly Bean Mini Project");
-        jbmp.setTextColor(0xffffffff);
 
         mUnlockWidget = findViewById(R.id.unlock_widget);
         mUnlockWidgetMethods = createUnlockMethods(mUnlockWidget);

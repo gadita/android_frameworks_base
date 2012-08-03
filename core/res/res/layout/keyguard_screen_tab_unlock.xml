@@ -323,17 +323,6 @@
             android:textColor="?android:attr/textColorSecondary"
             />
 
-        <TextView
-            android:id="@+id/jbmp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
-            android:layout_marginBottom="2dip"
-            android:layout_alignParentBottom="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="?android:attr/textColorSecondary"
-            />
-
     </RelativeLayout>
 
     <LinearLayout
