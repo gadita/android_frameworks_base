@@ -756,8 +756,7 @@
     <string name="lockscreen_plugged_in" msgid="8057762828355572315">"Töltés (<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>)"</string>
     <string name="lockscreen_charged" msgid="4938930459620989972">"Feltöltve."</string>
     <string name="lockscreen_battery_short" msgid="4477264849386850266">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="lockscreen_low_battery" msgid="1482873981919249740">"Csatlakoztassa a töltőt! (<xliff:g id="number">%d</xliff:g><xl
-    iff:g id="percent">%%</xliff:g>)"</string>
+    <string name="lockscreen_low_battery" msgid="1482873981919249740">"Csatlakoztassa a töltőt! (<xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g>)"</string>
     <string name="lockscreen_missing_sim_message_short" msgid="7381499217732227295">"Nincs SIM-kártya."</string>
     <string name="lockscreen_missing_sim_message" product="tablet" msgid="151659196095791474">"Nincs SIM-kártya a táblagépben."</string>
     <string name="lockscreen_missing_sim_message" product="default" msgid="2186920585695169078">"Nincs SIM-kártya a telefonban."</string>
