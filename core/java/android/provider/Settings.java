@@ -1158,12 +1158,6 @@ public final class Settings {
         public static final String HOME_BUTTON_ANSWERS_CALL = "home_button_answers_call";
 
         /**
-         * Home button answers call easter egg :)
-         * @hide
-         */
-        public static final String ANSWERS_CALL_TRICK = "answers_call_trick";
-
-        /**
          * Reboot show/hide
          * @hide
          */
