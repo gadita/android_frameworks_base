@@ -3834,6 +3834,10 @@
   <java-symbol type="string" name="second" />
   <java-symbol type="string" name="seconds" />
 
+<<<<<<< HEAD
+=======
+  <!-- Lock screen always show battery -->
+>>>>>>> cyanogen/jellybean
   <java-symbol type="string" name="lockscreen_discharging" />
 
 </resources>

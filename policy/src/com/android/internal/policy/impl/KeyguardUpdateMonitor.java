@@ -676,11 +676,21 @@ public class KeyguardUpdateMonitor {
     }
 
     public boolean shouldShowBatteryInfo() {
+<<<<<<< HEAD
         return isPluggedIn(mBatteryStatus) || isBatteryLow(mBatteryStatus) || shouldAlwaysShowBatteryInfo(mContext);
     }
 
     public static boolean shouldAlwaysShowBatteryInfo(Context context) {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 1;
+=======
+        return isPluggedIn(mBatteryStatus) || isBatteryLow(mBatteryStatus)
+                       || shouldAlwaysShowBatteryInfo(mContext);
+    }
+
+    public static boolean shouldAlwaysShowBatteryInfo(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                       Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 1;
+>>>>>>> cyanogen/jellybean
     }
 
     public CharSequence getTelephonyPlmn() {
