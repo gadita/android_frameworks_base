@@ -2698,11 +2698,7 @@ public final class Settings {
          * Always show the battery status on the lockscreen
          * @hide
          */
-<<<<<<< HEAD
-        public static final String LOCKSCREEN_ALWAYS_SHOW_BATTERY = "lockscreen_always_show_battery"
-=======
         public static final String LOCKSCREEN_ALWAYS_SHOW_BATTERY = "lockscreen_always_show_battery";
->>>>>>> cyanogen/jellybean
 
         /**
          * Show the pending notification counts as overlays on the status bar

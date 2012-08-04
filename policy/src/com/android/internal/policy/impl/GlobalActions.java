@@ -155,15 +155,10 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mKeyguardShowing = keyguardShowing;
         mDeviceProvisioned = isDeviceProvisioned;
         if (mDialog != null) {
-<<<<<<< HEAD
-            mDialog.hide();
-            mDialog.cancel();
-=======
             if (mUiContext != null) {
                 mUiContext = null;
             }
             mDialog.dismiss();
->>>>>>> cyanogen/jellybean
             mDialog = null;
             // Show delayed, so that the dismiss of the previous dialog completes
             mHandler.sendEmptyMessage(MESSAGE_SHOW);
