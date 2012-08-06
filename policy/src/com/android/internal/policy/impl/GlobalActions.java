@@ -304,14 +304,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
         }
 
-<<<<<<< HEAD
         // next: screenshot - only shown if enabled, which is true by default
         if (Settings.System.getInt(mContext.getContentResolver(), POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1) {
-=======
-        // next: screenshot - only shown if enabled, disabled by default
-        if (Settings.System.getInt(mContext.getContentResolver(),
-                POWER_MENU_SCREENSHOT_ENABLED, 0) == 1) {
->>>>>>> cyanogen/jellybean
             mItems.add(
                 new SinglePressAction(R.drawable.ic_lock_screenshot, R.string.global_action_screenshot) {
                     public void onPress() {
