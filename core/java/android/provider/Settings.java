@@ -2891,12 +2891,6 @@ public final class Settings {
             QUIET_HOURS_DIM,
             LOCKSCREEN_ALWAYS_SHOW_BATTERY,
             SYSTEM_PROFILES_ENABLED,
-<<<<<<< HEAD
-=======
-            POWER_MENU_SCREENSHOT_ENABLED,
-            POWER_MENU_REBOOT_ENABLED,
-            POWER_MENU_PROFILES_ENABLED,
->>>>>>> cyanogen/jellybean
             LOCKSCREEN_VIBRATE_ENABLED,
         };
 
