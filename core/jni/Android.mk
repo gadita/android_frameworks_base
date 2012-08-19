@@ -162,13 +162,14 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
     LOCAL_CFLAGS += -DQCOM_HARDWARE
     LOCAL_SRC_FILES += \
 	    com_android_internal_app_ActivityTrigger.cpp
+    LOCAL_C_INCLUDES += \
+	    hardware/qcom/display/libtilerenderer
 endif
 
 LOCAL_C_INCLUDES += \
 	$(JNI_H_INCLUDE) \
 	$(LOCAL_PATH)/android/graphics \
 	$(LOCAL_PATH)/../../libs/hwui \
-	hardware/qcom/display/libtilerenderer \
 	$(LOCAL_PATH)/../../../native/opengl/libs \
 	$(call include-path-for, bluedroid) \
 	$(call include-path-for, libhardware)/hardware \
@@ -226,8 +227,12 @@ LOCAL_SHARED_LIBRARIES := \
 	libharfbuzz \
 	libz
 
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+	LOCAL_SHARED_LIBRARIES += libtilerenderer
+endif
+
 ifeq ($(USE_OPENGL_RENDERER),true)
-	LOCAL_SHARED_LIBRARIES += libtilerenderer libhwui
+	LOCAL_SHARED_LIBRARIES += libhwui
 endif
 
 ifeq ($(BOARD_HAVE_BLUETOOTH),true)
