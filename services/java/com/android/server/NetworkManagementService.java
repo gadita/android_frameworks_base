@@ -294,6 +294,7 @@ public class NetworkManagementService extends INetworkManagementService.Stub
                 mBandwidthControlEnabled = true;
             } catch (NativeDaemonConnectorException e) {
                 Log.wtf(TAG, "problem enabling bandwidth controls", e);
+                mBandwidthControlEnabled = true;
             }
         } else {
             Slog.d(TAG, "not enabling bandwidth control");
