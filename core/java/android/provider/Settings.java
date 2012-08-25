@@ -1190,6 +1190,13 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_TITLE = "power_dialog_show_title";
 
         /**
+         * Holds the text for the Carrier Label. An empty string will bring
+         * the default text back.
+         * @hide
+         */
+        public static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
