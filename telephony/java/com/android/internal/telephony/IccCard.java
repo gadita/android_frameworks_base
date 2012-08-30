@@ -29,6 +29,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.Registrant;
 import android.os.RegistrantList;
+import android.os.SystemProperties;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -564,9 +565,12 @@ public class IccCard {
             broadcastIccStateChangedIntent(INTENT_VALUE_ICC_ABSENT, null);
         } else if (transitionedIntoNetworkLocked) {
             if (mDbg) log("Notify SIM network locked.");
-            mNetworkLockedRegistrants.notifyRegistrants();
-            broadcastIccStateChangedIntent(INTENT_VALUE_ICC_LOCKED,
+            String RILskip_locked = SystemProperties.get("ro.telephony.ril_skip_locked");
+            if (!"true".equals(RILskip_locked)) {
+                mNetworkLockedRegistrants.notifyRegistrants();
+                broadcastIccStateChangedIntent(INTENT_VALUE_ICC_LOCKED,
                   INTENT_VALUE_LOCKED_NETWORK);
+            }
         } else if (transitionedIntoPermBlocked) {
             if (mDbg) log("Notify SIM permanently disabled.");
             broadcastIccStateChangedIntent(INTENT_VALUE_ICC_ABSENT,
