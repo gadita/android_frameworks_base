@@ -78,6 +78,8 @@ public class Clock extends TextView {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_AM_PM), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_COLOR), false, this);
+            resolver.registerContentObserver(Settings.SystemgetUriFor(
                     Settings.System.STATUS_BAR_CLOCK), false, this);
         }
 
@@ -85,6 +87,8 @@ public class Clock extends TextView {
             updateSettings();
         }
     }
+
+    protected int mClockColor = com.android.internal.R.color.holo_blue_light;
 
     public Clock(Context context) {
         this(context, null);
@@ -239,6 +243,8 @@ public class Clock extends TextView {
 
     private void updateSettings(){
         ContentResolver resolver = mContext.getContentResolver();
+        int defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
 
         mAmPmStyle = (Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_AM_PM, 2));
@@ -259,6 +265,15 @@ public class Clock extends TextView {
             setVisibility(View.VISIBLE);
         else
             setVisibility(View.GONE);
+
+        mClockColor = Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_CLOCK_COLOR, defaultColor);
+
+        if (mClockColor == Integer.MIN_VALUE) {
+            mClockColor = defaultColor;
+        }
+
+        setTextColor(mClockColor);
     }
 }
 

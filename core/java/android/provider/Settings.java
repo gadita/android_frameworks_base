@@ -1149,6 +1149,11 @@ public final class Settings {
          */
         public static final String CENTER_CLOCK_STATUS_BAR = "center_clock_status_bar";
 
+        /**
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color";
+
         /** Back button ends call
          * @hide
          */
