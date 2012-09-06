@@ -1196,6 +1196,12 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_TITLE = "power_dialog_show_title";
 
         /**
+         * custom lockscreen text color
+         * @hide
+         */
+        public static final String LOCKSCREEN_CUSTOM_TEXT_COLOR = "lockscreen_custom_text_color";
+
+        /**
          * Holds the text for the Carrier Label. An empty string will bring
          * the default text back.
          * @hide
