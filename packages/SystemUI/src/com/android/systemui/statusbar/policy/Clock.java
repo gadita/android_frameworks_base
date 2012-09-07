@@ -79,7 +79,7 @@ public class Clock extends TextView {
                     Settings.System.STATUS_BAR_AM_PM), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUSBAR_CLOCK_COLOR), false, this);
-            resolver.registerContentObserver(Settings.SystemgetUriFor(
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CLOCK), false, this);
         }
 
