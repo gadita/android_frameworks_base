@@ -50,9 +50,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.widget.*;
-import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 
 import com.android.internal.R;
@@ -75,7 +75,7 @@ import java.util.ArrayList;
  * information about the device depending on its state, and how to get
  * past it, as applicable.
  */
-class LockScreen extends LinearLayout implements KeyguardScreen {
+class LockScreen extends RelativeLayout implements KeyguardScreen {
 
     private static final int ON_RESUME_PING_DELAY = 500; // delay first ping until the screen is on
     private static final boolean DBG = false;
@@ -102,6 +102,10 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
     private boolean mSilentMode;
     private AudioManager mAudioManager;
     private boolean mEnableMenuKeyInLockScreen;
+
+    // JB Mini Project
+    private TextView mJBMPleft;
+    private TextView mJBMPright;
 
     private KeyguardStatusViewManager mStatusViewManager;
     private UnlockWidgetCommonMethods mUnlockWidgetMethods;
@@ -686,6 +690,30 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
             throw new IllegalStateException("Unrecognized unlock widget: " + unlockWidget);
         }
     }
+
+    mJBMPleft = new TextView(context);
+    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    lp.leftMargin = 4;
+    lp.bottomMargin = 4;
+    lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+    mJBMPleft.setLayoutParams(lp);
+    mJBMPleft.setVisibility(View.VISIBLE);
+    mJBMPleft.setText("JB Mini Project " + android.os.SystemProperties.get("ro.modversion"));
+    mJBMPleft.setTextColor(0xffffffff);
+    this.addView(mJBMPleft);
+
+    mJBMPright = new TextView(context);
+    lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    lp.rightMargin = 4;
+    lp.bottomMargin = 4;
+    lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+    mJBMPright.setLayoutParams(lp);
+    mJBMPright.setVisibility(View.VISIBLE);
+    mJBMPright.setText("JB Mini Team");
+    mJBMPright.setTextColor(0xffffffff);
+    this.addView(mJBMPright);
 
     private void updateTargets() {
         boolean disabledByAdmin = mLockPatternUtils.getDevicePolicyManager()
