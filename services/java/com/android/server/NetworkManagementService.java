@@ -938,7 +938,8 @@ public class NetworkManagementService extends INetworkManagementService.Stub
                 NetworkUtils.enableInterface(softapIface);
                 mConnector.doCommand(String.format("softap startap " + softapIface));
             }
-            mConnector.execute("softap", "start", wlanIface);
+            if (resources.getBoolean(com.android.internal.R.bool.config_wifiApStartInterface))
+                mConnector.execute("softap", "start", wlanIface);
             if (wifiConfig == null) {
                 mConnector.execute("softap", "set", wlanIface, softapIface);
             } else {
