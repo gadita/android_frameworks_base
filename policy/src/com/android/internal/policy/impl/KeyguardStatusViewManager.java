@@ -1206,5 +1206,26 @@ class KeyguardStatusViewManager implements OnClickListener {
         } catch (NullPointerException ne) {
             if (DEBUG) ne.printStackTrace();
         }
+
+        // weather view
+        try {
+            mWeatherCity.setTextColor(color);
+            mWeatherCondition.setTextColor(color);
+            mWeatherLowHigh.setTextColor(color);
+            mWeatherTemp.setTextColor(color);
+            mWeatherUpdateTime.setTextColor(color);
+            if (DEBUG) Log.d(TAG, String.format("Setting mWeather....... DATE text color to %d", color));
+        } catch (NullPointerException ne) {
+            if (DEBUG) ne.printStackTrace();
+        }
+
+        // calendar view
+        try {
+            mCalendarEventTitle.setTextColor(color);
+            mCalendarEventDetails.setTextColor(color);
+            if (DEBUG) Log.d(TAG, String.format("Setting mCalendarEvent..... DATE text color to %d", color));
+        } catch (NullPointerException ne) {
+            if (DEBUG) ne.printStackTrace();
+        }
     }
 }
