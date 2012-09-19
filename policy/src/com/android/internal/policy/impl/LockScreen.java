@@ -659,6 +659,30 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         mUnlockWidget = findViewById(R.id.unlock_widget);
         mUnlockWidgetMethods = createUnlockMethods(mUnlockWidget);
 
+        mJBMPleft = new TextView(context);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = 4;
+        lp.bottomMargin = 4;
+        lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mJBMPleft.setLayoutParams(lp);
+        mJBMPleft.setVisibility(View.VISIBLE);
+        mJBMPleft.setText("JB Mini Project " + android.os.SystemProperties.get("ro.modversion"));
+        mJBMPleft.setTextColor(0xffffffff);
+        this.addView(mJBMPleft);
+
+        mJBMPright = new TextView(context);
+        lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.rightMargin = 4;
+        lp.bottomMargin = 4;
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mJBMPright.setLayoutParams(lp);
+        mJBMPright.setVisibility(View.VISIBLE);
+        mJBMPright.setText("JB Mini Team");
+        mJBMPright.setTextColor(0xffffffff);
+        this.addView(mJBMPright);
+
         if (DBG) Log.v(TAG, "*** LockScreen accel is "
                 + (mUnlockWidget.isHardwareAccelerated() ? "on":"off"));
     }
@@ -690,30 +714,6 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             throw new IllegalStateException("Unrecognized unlock widget: " + unlockWidget);
         }
     }
-
-    mJBMPleft = new TextView(context);
-    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    lp.leftMargin = 4;
-    lp.bottomMargin = 4;
-    lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-    mJBMPleft.setLayoutParams(lp);
-    mJBMPleft.setVisibility(View.VISIBLE);
-    mJBMPleft.setText("JB Mini Project " + android.os.SystemProperties.get("ro.modversion"));
-    mJBMPleft.setTextColor(0xffffffff);
-    this.addView(mJBMPleft);
-
-    mJBMPright = new TextView(context);
-    lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    lp.rightMargin = 4;
-    lp.bottomMargin = 4;
-    lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-    mJBMPright.setLayoutParams(lp);
-    mJBMPright.setVisibility(View.VISIBLE);
-    mJBMPright.setText("JB Mini Team");
-    mJBMPright.setTextColor(0xffffffff);
-    this.addView(mJBMPright);
 
     private void updateTargets() {
         boolean disabledByAdmin = mLockPatternUtils.getDevicePolicyManager()
