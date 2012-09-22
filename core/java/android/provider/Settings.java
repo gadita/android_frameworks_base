@@ -1202,6 +1202,15 @@ public final class Settings {
         public static final String STATUSBAR_SHOW_ALARM = "statusbar_show_alarm";
 
         /**
+         * @hide
+         * Shows weekday before clock time
+         * 0 - No Day
+         * 1 - Small Day
+         * 2 - Normal Day
+         */
+        public static final String STATUSBAR_CLOCK_WEEKDAY = "statusbar_clock_weekday";
+
+        /**
          * custom lockscreen text color
          * @hide
          */

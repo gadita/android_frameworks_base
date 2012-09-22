@@ -63,6 +63,12 @@ public class Clock extends TextView {
 
     private static int AM_PM_STYLE = AM_PM_STYLE_GONE;
 
+    public static final int WEEKDAY_STYLE_GONE    = 0;
+    public static final int WEEKDAY_STYLE_SMALL   = 1;
+    public static final int WEEKDAY_STYLE_NORMAL  = 2;
+
+    protected int mWeekday = WEEKDAY_STYLE_GONE;
+
     private int mAmPmStyle;
     private boolean mShowClock;
 
@@ -81,6 +87,8 @@ public class Clock extends TextView {
                     Settings.System.STATUSBAR_CLOCK_COLOR), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CLOCK), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_WEEKDAY), false, this);
         }
 
         @Override public void onChange(boolean selfChange) {
@@ -175,6 +183,8 @@ public class Clock extends TextView {
 
         final char MAGIC1 = '\uEF00';
         final char MAGIC2 = '\uEF01';
+        final char MAGIC3 = '\uEF02';
+        final char MAGIC4 = '\uEF03';
 
         SimpleDateFormat sdf;
         String format = context.getString(res);
@@ -208,6 +218,7 @@ public class Clock extends TextView {
                     format = format.substring(0, a) + MAGIC1 + format.substring(a, b)
                         + "a" + MAGIC2 + format.substring(b + 1);
                 }
+                mClockFormat = new SimpleDateFormat(format);
             }
 
             mClockFormat = sdf = new SimpleDateFormat(format);
@@ -215,13 +226,24 @@ public class Clock extends TextView {
         } else {
             sdf = mClockFormat;
         }
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String todayIs = null;
+
         String result = sdf.format(mCalendar.getTime());
+
+        if (mWeekday != WEEKDAY_STYLE_GONE) {
+            todayIs = whatDay(day);
+            result = todayIs + result;
+        }
+
+        SpannableStringBuilder formatted = new SpannableStringBuilder(result);
 
         if (AM_PM_STYLE != AM_PM_STYLE_NORMAL) {
             int magic1 = result.indexOf(MAGIC1);
             int magic2 = result.indexOf(MAGIC2);
             if (magic1 >= 0 && magic2 > magic1) {
-                SpannableStringBuilder formatted = new SpannableStringBuilder(result);
                 if (AM_PM_STYLE == AM_PM_STYLE_GONE) {
                     formatted.delete(magic1, magic2+1);
                 } else {
@@ -233,12 +255,50 @@ public class Clock extends TextView {
                     formatted.delete(magic2, magic2 + 1);
                     formatted.delete(magic1, magic1 + 1);
                 }
-                return formatted;
             }
         }
- 
-        return result;
 
+        if (mWeekday != WEEKDAY_STYLE_NORMAL) {
+            if (todayIs != null) {
+                if (mWeekday == WEEKDAY_STYLE_GONE) {
+                    formatted.delete(0,4);
+                } else {
+                    if (mWeekday == WEEKDAY_STYLE_SMALL) {
+                        CharacterStyle style = new RelativeSizeSpan(0.7f);
+                        formatted.setSpan(style, 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                    }
+                }
+            }
+        }
+        return formatted;
+    }
+
+    private String whatDay(int today) {
+        String todayIs = null;
+        switch (today) {
+            case 1:
+                todayIs = "Sun ";
+                break;
+            case 2:
+                todayIs = "Mon ";
+                break;
+            case 3:
+                todayIs = "Tue ";
+                break;
+            case 4:
+                todayIs = "Wed ";
+                break;
+            case 5:
+                todayIs = "Thu ";
+                break;
+            case 6:
+                todayIs = "Fri ";
+                break;
+            case 7:
+                todayIs = "Sat ";
+                break;
+        }
+        return todayIs;
     }
 
     private void updateSettings(){
@@ -274,6 +334,9 @@ public class Clock extends TextView {
         }
 
         setTextColor(mClockColor);
+
+        mWeekday = Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_CLOCK_WEEKDAY, 0);
     }
 }
 
