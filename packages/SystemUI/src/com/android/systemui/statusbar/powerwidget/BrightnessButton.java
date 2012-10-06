@@ -114,20 +114,14 @@ public class BrightnessButton extends PowerButton {
         }
 
         int backlightIndex = mBacklightValues[mCurrentBacklightIndex];
-        Log.e(TAG, "backlightIndex: " + backlightIndex + "mCurrentBacklightIndex: " + mCurrentBacklightIndex );
         if (backlightIndex > BACKLIGHTS.length - 1) {
-            // This is the Ultra Brightness mode
             writeOneLine("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode", "i2c_pwm");
-            SystemProperties.set("persist.sys.raisedbrightness", "1");
-
-            // Also set Brightness to max
+            Settings.System.putInt(resolver, Settings.System.SCREEN_RAISED_BRIGHTNESS, 1);
             backlightIndex = BACKLIGHTS.length - 1;
-            Log.e(TAG, "Setting backlightIndex to: " + backlightIndex + " BACKLIGHTS.length:: " + BACKLIGHTS.length);
         }
         else if (backlightIndex == 1) {
-            // When dimming, disable ultra brightness
             writeOneLine("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode", "i2c_pwm_als");
-            SystemProperties.set("persist.sys.raisedbrightness", "0");
+            Settings.System.putInt(resolver, Settings.System.SCREEN_RAISED_BRIGHTNESS, 0);
         }
 
         int brightness = BACKLIGHTS[backlightIndex];

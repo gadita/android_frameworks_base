@@ -1191,6 +1191,13 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_RINGER = "power_dialog_show_ringer";
 
         /**
+         * Control whether to enable raised brightness mode.
+         *
+         * @hide
+         */
+        public static final String SCREEN_RAISED_BRIGHTNESS = "screen_raised_brightness";
+
+        /**
          * Power Dialog Title show/hide
          * @hide
          */
