@@ -1192,7 +1192,6 @@ public final class Settings {
 
         /**
          * Control whether to enable raised brightness mode.
-         *
          * @hide
          */
         public static final String SCREEN_RAISED_BRIGHTNESS = "screen_raised_brightness";
@@ -1210,11 +1209,11 @@ public final class Settings {
         public static final String STATUSBAR_SHOW_ALARM = "statusbar_show_alarm";
 
         /**
-         * @hide
          * Shows weekday before clock time
          * 0 - No Day
          * 1 - Small Day
          * 2 - Normal Day
+         * @hide
          */
         public static final String STATUSBAR_CLOCK_WEEKDAY = "statusbar_clock_weekday";
 
@@ -1225,6 +1224,18 @@ public final class Settings {
         public static final String LOCKSCREEN_CUSTOM_TEXT_COLOR = "lockscreen_custom_text_color";
 
         /**
+         * Lock Screen Style chooser
+         * @hide
+         */
+        public static final String LOCKSCREEN_STYLE = "lockscreen_style";
+
+        /**
+         * Hide the arrows
+         * @hide
+         */
+        public static final String LOCKSCREEN_HIDE_ARROWS = "lockscreen_hide_arrows";
+
+        /**
          * Holds the text for the Carrier Label. An empty string will bring
          * the default text back.
          * @hide
@@ -1233,7 +1244,6 @@ public final class Settings {
 
         /**
          * Whether to show the battery bar
-         *
          * @hide
          */
         public static final String STATUSBAR_BATTERY_BAR = "statusbar_battery_bar";
@@ -1245,7 +1255,6 @@ public final class Settings {
 
         /**
          * thickness of the batteyr bar (in dp)
-         *
          * @hide
          */
         public static final String STATUSBAR_BATTERY_BAR_THICKNESS = "statusbar_battery_bar_thickness";
@@ -1253,14 +1262,12 @@ public final class Settings {
         /**
          * 0 = regular
          * 1 = mirrored from center
-         *
          * @hide
          */
         public static final String STATUSBAR_BATTERY_BAR_STYLE = "statusbar_battery_bar_style";
 
         /**
          * whether to show charging animation
-         *
          * @hide
          */
         public static final String STATUSBAR_BATTERY_BAR_ANIMATE = "statusbar_battery_bar_animate";
