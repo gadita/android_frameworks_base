@@ -117,6 +117,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
     private boolean mUseSlider = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 1);
     private boolean mUseRotary = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 2);
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
+    private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
 
     // Is there a vibrator
     private final boolean mHasVibrator;
@@ -199,8 +200,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         public void onGrabbedStateChange(View v, int grabbedState) {
             if (grabbedState == SlidingTab.OnTriggerListener.RIGHT_HANDLE) {
                 mSilentMode = isSilentMode();
-                mSlidingTab.setRightHintText(mSilentMode ? R.string.lockscreen_sound_on_label
-                        : R.string.lockscreen_sound_off_label);
+                if (mHideHint)
+                    mSlidingTab.setRightHintText(mSilentMode ? R.string.lockscreen_sound_on_label : R.string.lockscreen_sound_off_label);
             }
             // Don't poke the wake lock when returning to a state where the handle is
             // not grabbed since that can happen when the system (instead of the user)
@@ -722,7 +723,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         if (unlockWidget instanceof SlidingTab) {
             SlidingTab slidingTabView = (SlidingTab) unlockWidget;
             slidingTabView.setHoldAfterTrigger(true, false);
-            slidingTabView.setLeftHintText(R.string.lockscreen_unlock_label);
+            if (mHideHint)
+                slidingTabView.setLeftHintText(R.string.lockscreen_unlock_label);
             slidingTabView.setLeftTabResources(
                     R.drawable.ic_jog_dial_unlock,
                     R.drawable.jog_tab_target_green,

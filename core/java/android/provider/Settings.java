@@ -1236,6 +1236,12 @@ public final class Settings {
         public static final String LOCKSCREEN_HIDE_ARROWS = "lockscreen_hide_arrows";
 
         /**
+         * Hide the hints
+         * @hide
+         */
+        public static final String LOCKSCREEN_HIDE_HINT = "lockscreen_hide_hint";
+
+        /**
          * Holds the text for the Carrier Label. An empty string will bring
          * the default text back.
          * @hide
