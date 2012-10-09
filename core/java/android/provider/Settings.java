@@ -1242,6 +1242,12 @@ public final class Settings {
         public static final String LOCKSCREEN_HIDE_HINT = "lockscreen_hide_hint";
 
         /**
+         * Unlock rotary by dragging down
+         * @hide
+         */
+        public static final String LOCKSCREEN_ROTARY_UNLOCK_DOWN = "lockscreen_rotary_unlock_down";
+
+        /**
          * Holds the text for the Carrier Label. An empty string will bring
          * the default text back.
          * @hide
