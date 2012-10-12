@@ -190,24 +190,9 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
 
         /** {@inheritDoc} */
         public void onTrigger(View v, int whichHandle) {
-            boolean mUnlockTrigger = false;
-            boolean mCustomAppTrigger = false;
+
 
             if (whichHandle == SlidingTab.OnTriggerListener.LEFT_HANDLE) {
-                if (mRotaryDown)
-                    mCustomAppTrigger = true;
-                else
-                    mUnlockTrigger = true;
-            }
-
-            if (whichHandle == RotarySelector.OnDialTriggerListener.MID_HANDLE) {
-                if (mRotaryDown)
-                    mUnlockTrigger = true;
-                else
-                    mCustomAppTrigger = true;
-            }
-
-            if (mUnlockTrigger) {
                 mCallback.goToUnlockScreen();
             } else if (whichHandle == SlidingTab.OnTriggerListener.RIGHT_HANDLE) {
                 toggleRingMode();
@@ -260,7 +245,24 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
 
         /** {@inheritDoc} */
         public void onDialTrigger(View v, int whichHandle) {
+            boolean mUnlockTrigger = false;
+            boolean mCustomAppTrigger = false;
+
             if (whichHandle == RotarySelector.OnDialTriggerListener.LEFT_HANDLE) {
+                if (mRotaryDown)
+                    mCustomAppTrigger = true;
+                else
+                    mUnlockTrigger = true;
+            }
+
+            if (whichHandle == RotarySelector.OnDialTriggerListener.MID_HANDLE) {
+                if (mRotaryDown)
+                    mUnlockTrigger = true;
+                else
+                    mCustomAppTrigger = true;
+            }
+
+            if (mUnlockTrigger) {
                 mCallback.goToUnlockScreen();
             } else if (whichHandle == RotarySelector.OnDialTriggerListener.RIGHT_HANDLE) {
                 toggleRingMode();
