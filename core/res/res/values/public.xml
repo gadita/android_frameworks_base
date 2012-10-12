@@ -988,6 +988,7 @@
   <java-symbol type="drawable" name="indicator_code_lock_point_area_red_holo" />
   <java-symbol type="drawable" name="jog_dial_arrow_long_left_green" />
   <java-symbol type="drawable" name="jog_dial_arrow_long_right_red" />
+  <java-symbol type="drawable" name="jog_dial_arrow_short_down_green" />
   <java-symbol type="drawable" name="jog_dial_arrow_short_left_and_right" />
   <java-symbol type="drawable" name="jog_dial_bg" />
   <java-symbol type="drawable" name="jog_dial_dimple" />
@@ -1227,6 +1228,7 @@
   <java-symbol type="dimen" name="navigation_bar_width" />
   <java-symbol type="dimen" name="status_bar_height" />
   <java-symbol type="dimen" name="lockscreen_target_inset" />
+  <java-symbol type="drawable" name="ic_jog_dial_custom" />
   <java-symbol type="drawable" name="ic_jog_dial_sound_off" />
   <java-symbol type="drawable" name="ic_jog_dial_sound_on" />
   <java-symbol type="drawable" name="ic_jog_dial_unlock" />

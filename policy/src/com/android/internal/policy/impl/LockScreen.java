@@ -116,13 +116,11 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
 
     private boolean mUseSlider = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 1);
     private boolean mUseRotary = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 2);
-    private boolean mRotaryRevamp = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 0) == 3);
+    private boolean mRotaryRevamp = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 3);
 
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
     private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
     private boolean mRotaryDown = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_ROTARY_UNLOCK_DOWN, 0) == 1);
-
-    private boolean mCustomOne = false; //this is the custom app runner for rotary lockscreen in the future
 
     // Is there a vibrator
     private final boolean mHasVibrator;
@@ -211,10 +209,6 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
 
             if (mUnlockTrigger) {
                 mCallback.goToUnlockScreen();
-            } else if (mCustomAppTrigger) {
-                if (mCustomOne != null) {
-                    runActivity(mCustomOne);
-                }
             } else if (whichHandle == SlidingTab.OnTriggerListener.RIGHT_HANDLE) {
                 toggleRingMode();
                 mUnlockWidgetMethods.updateResources();
@@ -688,9 +682,6 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         mEnableMenuKeyInLockScreen = shouldEnableMenuKey();
         mCreationOrientation = configuration.orientation;
 
-        if (mCustomAppIcon == null)
-            mCustomAppIcon = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_jog_dial_custom);
-
         if (LockPatternKeyguardView.DEBUG_CONFIGURATION) {
             Log.v(TAG, "***** CREATING LOCK SCREEN", new RuntimeException());
             Log.v(TAG, "Cur orient=" + mCreationOrientation
@@ -779,11 +770,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             if (!mRotaryDown) {
                 rotarySelectorView.setLeftHandleResource(
                     R.drawable.ic_jog_dial_unlock);
-                rotarySelectorView.setMidHandleResource(
-                    mCustomAppIcon);
             } else {
-                rotarySelectorView.setLeftHandleResource(
-                    mCustomAppIcon);
                 rotarySelectorView.setMidHandleResource(
                     R.drawable.ic_jog_dial_unlock);
             }
