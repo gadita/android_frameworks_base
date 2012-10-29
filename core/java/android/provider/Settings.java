@@ -2638,6 +2638,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_IME_SWITCHER = "status_bar_ime_switcher";
 
+         /**
+         * Statusbar State
+         * @hide
+         */
+        public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
+
         /**
          * Whether to use a separate delay for "slide to unlock" and security
          * lock
@@ -2677,6 +2683,12 @@ public final class Settings {
          * @hide
          */
         public static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
+
+        /**
+         * Whether to unlock the screen with the home key.  The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String HOME_UNLOCK_SCREEN = "home_unlock_screen";
 
         /**
          * Whether to wake the screen with the volume keys, the value is boolean.
@@ -2853,6 +2865,12 @@ public final class Settings {
         public static final String SYSTEM_PROFILES_ENABLED = "system_profiles_enabled";
 
         /**
+         * Whether power menu expanded desktop is enabled
+         * @hide
+         */
+        public static final String POWER_MENU_EXPANDED_DESKTOP_ENABLED = "power_menu_expanded_desktop_enabled";
+
+        /**
          * Whether to enable custom rebindings of the actions performed on
          * certain key press events.
          * @hide
@@ -3016,6 +3034,14 @@ public final class Settings {
             QUIET_HOURS_DIM,
             LOCKSCREEN_ALWAYS_SHOW_BATTERY,
             SYSTEM_PROFILES_ENABLED,
+<<<<<<< HEAD
+=======
+            POWER_MENU_SCREENSHOT_ENABLED,
+            POWER_MENU_REBOOT_ENABLED,
+            POWER_MENU_PROFILES_ENABLED,
+            POWER_MENU_AIRPLANE_ENABLED,
+            POWER_MENU_SILENT_ENABLED,
+>>>>>>> cyanogen/jellybean
             LOCKSCREEN_VIBRATE_ENABLED,
         };
 
