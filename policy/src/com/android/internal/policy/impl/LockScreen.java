@@ -710,7 +710,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mJBMPright.setLayoutParams(lp);
         mJBMPright.setVisibility(View.VISIBLE);
-        mJBMPright.setText("JB Mini Team");
+        mJBMPright.setText("Old Xperia Team");
         mJBMPright.setTextColor(0xffffffff);
         this.addView(mJBMPright);
 
