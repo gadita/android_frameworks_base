@@ -39,7 +39,6 @@ static int doCommand(const char *ifname, const char *cmd, char *replybuf, int re
     size_t reply_len = replybuflen - 1;
 
     if ((err = ::wifi_command(ifname, cmd, replybuf, &reply_len)) != 0) {
-        ALOGE("ERR %d, returns -1", err);
         return -1;
     }
     else {
