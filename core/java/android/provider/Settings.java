@@ -1203,12 +1203,6 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_TITLE = "power_dialog_show_title";
 
         /**
-         * Alarm icon show/hide
-         * @hide
-         */
-        public static final String STATUSBAR_SHOW_ALARM = "statusbar_show_alarm";
-
-        /**
          * Shows weekday before clock time
          * 0 - No Day
          * 1 - Small Day
