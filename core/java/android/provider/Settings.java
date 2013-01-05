@@ -1145,6 +1145,18 @@ public final class Settings {
             Uri.parse("content://" + AUTHORITY + "/system");
 
         /**
+         * Enable/disable screenshot sound
+         * @hide
+         */
+        public static final String SCREENSHOT_SOUND = "screenshot_sound";
+
+        /**
+         * Screenshot delay
+         * @hide
+         */
+        public static final String SCREENSHOT_DELAY = "screenshot_delay";
+
+        /**
          * Center Clock
          * @hide
          */
