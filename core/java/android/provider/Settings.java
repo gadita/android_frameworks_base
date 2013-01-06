@@ -1167,6 +1167,12 @@ public final class Settings {
          */
         public static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color";
 
+        /**
+         * Option to change statusbar transparency
+         * @hide
+         */
+        public static final String STATUSBAR_TRANSPARENCY = "statusbar_transparency";
+
         /** Back button ends call
          * @hide
          */

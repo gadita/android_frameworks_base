@@ -401,6 +401,12 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected abstract WindowManager.LayoutParams getSearchLayoutParams(
             LayoutParams layoutParams);
 
+    protected void setStatusBarParams(View statusbarView){
+        int opacity = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUSBAR_TRANSPARENCY, 100);
+        statusbarView.getBackground().setAlpha(Math.round((opacity * 255) / 100));
+    }
+
     protected void updateRecentsPanel(int recentsResId) {
         // Recents Panel
         boolean visible = false;
