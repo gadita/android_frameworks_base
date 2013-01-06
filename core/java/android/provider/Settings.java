@@ -1291,6 +1291,12 @@ public final class Settings {
         public static final String STATUSBAR_BATTERY_BAR_ANIMATE = "statusbar_battery_bar_animate";
 
         /**
+         * Add option to display the navigation bar
+         * @hide
+         */
+        public static final String SHOW_NAVBAR = "show_navbar";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
