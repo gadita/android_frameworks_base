@@ -1,25 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.android.internal.policy.impl.LockscreenWallpaper android:id="@id/lockscreen_wallpaper" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    <GridLayout android:orientation="vertical" android:id="@id/root" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:rowCount="10"
-      xmlns:android="http://schemas.android.com/apk/res/android">
-        <com.android.internal.widget.DigitalClock android:layout_gravity="right" android:id="@id/time" android:layout_marginTop="80.0dip" android:layout_marginBottom="8.0dip" android:layout_rowSpan="2">
-            <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_clock_font_size" android:textColor="@color/lockscreen_clock_background" android:ellipsize="none" android:id="@id/timeDisplayBackground" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="6.0dip" android:singleLine="true" />
-            <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_clock_font_size" android:textColor="@color/lockscreen_clock_foreground" android:ellipsize="none" android:id="@id/timeDisplayForeground" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="6.0dip" android:singleLine="true" android:layout_alignLeft="@id/timeDisplayBackground" android:layout_alignTop="@id/timeDisplayBackground" />
-        </com.android.internal.widget.DigitalClock>
-        <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_status_line_font_size" android:ellipsize="marquee" android:gravity="right" android:layout_gravity="fill_horizontal" android:id="@id/date" android:layout_width="0.0dip" android:layout_marginTop="6.0dip" android:singleLine="true" />
-        <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_status_line_font_size" android:ellipsize="marquee" android:layout_gravity="right" android:id="@id/alarm_status" android:layout_marginTop="4.0dip" android:singleLine="true" android:drawablePadding="4.0dip" />
-        <com.android.internal.policy.impl.WeatherText android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_status_line_font_size" android:ellipsize="end" android:gravity="right" android:layout_gravity="fill_horizontal" android:id="@id/weather" android:layout_width="0.0dip" android:layout_marginTop="4.0dip" android:singleLine="true" android:drawablePadding="4.0dip" />
-        <ViewFlipper android:layout_gravity="right" android:id="@id/calendar" android:layout_marginTop="4.0dip" android:drawablePadding="4.0dip" android:inAnimation="@anim/calendar_fadein" android:outAnimation="@anim/calendar_fadeout" />
-        <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_status_line_font_size" android:ellipsize="marquee" android:gravity="right" android:layout_gravity="fill_horizontal" android:id="@id/status1" android:layout_width="0.0dip" android:layout_marginTop="4.0dip" android:singleLine="true" android:drawablePadding="4.0dip" />
-        <include android:layout_gravity="right" android:layout_marginTop="4.0dip" android:drawablePadding="4.0dip" layout="@layout/weatherpanel" />
-        <Space android:layout_gravity="fill" />
-        <TextView android:textAppearance="?textAppearanceMedium" android:textSize="@dimen/keyguard_lockscreen_status_line_font_size" android:textColor="?textColorSecondary" android:ellipsize="marquee" android:gravity="right" android:layout_gravity="fill_horizontal" android:id="@id/carrier" android:layout_width="0.0dip" android:layout_marginBottom="12.0dip" android:singleLine="true" />
-        <Button android:layout_gravity="right" android:id="@id/emergencyCallButton" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lockscreen_emergency_call" android:drawableLeft="@drawable/lockscreen_emergency_button" android:drawablePadding="8.0dip" style="?android:attr/buttonBarButtonStyle" />
-        <Space android:gravity="fill_vertical" android:layout_width="16.0dip" android:layout_rowSpan="10" />
-        <com.android.internal.widget.WaveView android:id="@id/unlock_widget" android:layout_width="312.0dip" android:layout_height="fill_parent" android:layout_rowSpan="10" />
-        <include android:layout_gravity="fill" android:id="@id/transport" android:layout_width="0.0dip" android:layout_height="0.0dip" android:layout_column="0" android:layout_row="0" android:layout_rowSpan="9" android:layout_columnSpan="1" layout="@layout/keyguard_transport_control" />
-        <TextView android:layout_gravity="fill" android:id="@id/faceLockAreaView" android:background="@color/facelock_color_background" android:visibility="invisible" android:layout_width="0.0dip" android:layout_height="0.0dip" android:layout_column="2" android:layout_row="0" android:layout_rowSpan="10" android:layout_columnSpan="1" />
-    </GridLayout>
-</RelativeLayout>
+<!--
+**
+** Copyright 2009, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License")
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<!-- This is the general lock screen which shows information about the
+  state of the device, as well as instructions on how to get past it
+  depending on the state of the device.-->
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:rowCount="7"
+    android:id="@+id/root"
+    android:clipChildren="false">
+
+    <!-- Column 0 -->
+    <com.android.internal.widget.DigitalClock android:id="@+id/time"
+        android:layout_marginTop="80dip"
+        android:layout_marginBottom="8dip"
+        android:layout_gravity="right">
+
+       <!-- Because we can't have multi-tone fonts, we render two TextViews, one on
+        top of the other. Hence the redundant layout... -->
+        <TextView android:id="@+id/timeDisplayBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="none"
+            android:textSize="@dimen/keyguard_lockscreen_clock_font_size"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginBottom="6dip"
+            android:textColor="@color/lockscreen_clock_background"
+            />
+
+        <TextView android:id="@+id/timeDisplayForeground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="none"
+            android:textSize="@dimen/keyguard_lockscreen_clock_font_size"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginBottom="6dip"
+            android:textColor="@color/lockscreen_clock_foreground"
+            android:layout_alignLeft="@id/timeDisplayBackground"
+            android:layout_alignTop="@id/timeDisplayBackground"
+            />
+
+    </com.android.internal.widget.DigitalClock>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dip"
+        android:layout_gravity="fill_horizontal"
+        android:gravity="right"
+        android:layout_marginTop="6dip"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/keyguard_lockscreen_status_line_font_size"
+        />
+
+    <TextView
+        android:id="@+id/alarm_status"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/keyguard_lockscreen_status_line_font_size"
+        android:drawablePadding="4dip"
+        android:layout_marginTop="4dip"
+        android:layout_gravity="right"
+        />
+
+    <TextView
+        android:id="@+id/status1"
+        android:layout_width="0dip"
+        android:layout_gravity="fill_horizontal"
+        android:gravity="right"
+        android:layout_marginTop="4dip"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/keyguard_lockscreen_status_line_font_size"
+        android:drawablePadding="4dip"
+        />
+
+    <TextView
+        android:id="@+id/zzstatus2"
+        android:layout_width="0dip"
+        android:layout_gravity="fill_horizontal"
+        android:gravity="right"
+        android:layout_marginTop="4dip"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/keyguard_lockscreen_status_line_font_size"
+        android:drawablePadding="4dip"
+        />
+
+    <Space android:layout_gravity="fill" />
+
+    <TextView
+        android:id="@+id/carrier"
+        android:layout_width="0dip"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="12dip"
+        android:gravity="right"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/keyguard_lockscreen_status_line_font_size"
+        android:textColor="?android:attr/textColorSecondary"
+        />
+
+    <Button
+        android:id="@+id/emergencyCallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:drawableLeft="@*android:drawable/lockscreen_emergency_button"
+        android:text="@*android:string/lockscreen_emergency_call"
+        style="?android:attr/buttonBarButtonStyle"
+        android:drawablePadding="8dip"
+        android:visibility="gone"
+        />
+
+    <!-- Column 1 -->
+    <Space android:layout_width="64dip" android:layout_rowSpan="7" />
+
+    <!-- Column 2 -->
+    <com.android.internal.widget.WaveView
+        android:id="@+id/unlock_widget"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        />
+
+    <!-- Music transport control -->
+    <include android:id="@+id/transport"
+        layout="@layout/keyguard_transport_control"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_rowSpan="5"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill"
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        />
+
+</GridLayout>
