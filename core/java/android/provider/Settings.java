@@ -1173,10 +1173,35 @@ public final class Settings {
          */
         public static final String STATUSBAR_TRANSPARENCY = "statusbar_transparency";
 
-        /** Back button ends call
+        /**
+         * What happens when the user presses the Back button while in-call
+         * and the screen is on.<br/>
+         * <b>Values:</b><br/>
+         * 1 - The Back button goes back. (Default behavior)<br/>
+         * 2 - The Back button hangs up the current call.<br/>
+         *
          * @hide
          */
-        public static final String BACK_BUTTON_ENDS_CALL = "back_button_ends_call";
+        public static final String INCALL_BACK_BUTTON_BEHAVIOR = "incall_back_button_behavior";
+
+        /**
+         * INCALL_BACK_BUTTON_BEHAVIOR value for "goes back".
+         * @hide
+         */
+        public static final int INCALL_BACK_BUTTON_BEHAVIOR_BACK = 0x1;
+
+        /**
+         * INCALL_BACK_BUTTON_BEHAVIOR value for "hang up".
+         * @hide
+         */
+        public static final int INCALL_BACK_BUTTON_BEHAVIOR_HANGUP = 0x2;
+
+        /**
+         * INCALL_BACK_BUTTON_BEHAVIOR default value.
+         * @hide
+         */
+        public static final int INCALL_BACK_BUTTON_BEHAVIOR_DEFAULT =	4838
+                INCALL_BACK_BUTTON_BEHAVIOR_BACK;
 
         /**
          * Home button answers call
