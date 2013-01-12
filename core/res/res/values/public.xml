@@ -1313,8 +1313,6 @@
   <java-symbol type="layout" name="global_actions_item" />
   <java-symbol type="layout" name="global_actions_silent_mode" />
   <java-symbol type="layout" name="keyguard_screen_glogin_unlock" />
-  <java-symbol type="layout" name="keyguard_screen_honeycomb_unlock_land" />
-  <java-symbol type="layout" name="keyguard_screen_honeycomb_unlock" />
   <java-symbol type="layout" name="keyguard_screen_password_landscape" />
   <java-symbol type="layout" name="keyguard_screen_password_portrait" />
   <java-symbol type="layout" name="keyguard_screen_sim_pin_landscape" />
