@@ -596,8 +596,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     int mIncallPowerBehavior;
 
     // Behavior of BACK button while in-call and screen on.
-    // (See Settings.Secure.INCALL_BACK_BUTTON_BEHAVIOR.)
+    // (See Settings.System.INCALL_BACK_BUTTON_BEHAVIOR.)
     int mIncallBackBehavior;
+
+    // Behavior of MENU button during incomming call ring.
+    // (See Settings.System.RING_MENU_BUTTON_BEHAVIOR.)
+    int mRingMenuBehavior;
 
     Display mDisplay;
 
@@ -682,6 +686,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.INCALL_BACK_BUTTON_BEHAVIOR), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RING_MENU_BUTTON_BEHAVIOR), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.VOLUME_WAKE_SCREEN), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -1412,9 +1418,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mIncallPowerBehavior = Settings.Secure.getInt(resolver,
                     Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR,
                     Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR_DEFAULT);
-            mIncallBackBehavior = Settings.System.getIntForUser(resolver,
+            mIncallBackBehavior = Settings.System.getInt(resolver,
                     Settings.System.INCALL_BACK_BUTTON_BEHAVIOR,
                     Settings.System.INCALL_BACK_BUTTON_BEHAVIOR_DEFAULT);
+            mRingMenuBehavior = Settings.System.getInt(resolver,
+                    Settings.System.RING_MENU_BUTTON_BEHAVIOR,
+                    Settings.System.RING_MENU_BUTTON_BEHAVIOR_DEFAULT);
             mRingHomeBehavior = Settings.Secure.getInt(resolver,
                     Settings.Secure.RING_HOME_BUTTON_BEHAVIOR,
                     Settings.Secure.RING_HOME_BUTTON_BEHAVIOR_DEFAULT);
@@ -4045,21 +4054,33 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-            case KeyEvent.KEYCODE_HOME: {
+
+            case KeyEvent.KEYCODE_MENU: {
                 if (down) {
-                    if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.HOME_BUTTON_ANSWERS_CALL, 0) == 1) {
-                        ITelephony telephonyService = getTelephonyService();
-                        if (telephonyService != null) {
-                            try {
-                                telephonyService.answerRingingCall();
-                            } catch (RemoteException ex) {
-                                Log.w(TAG, "ITelephony threw RemoteException" + ex);
+                    ITelephony telephonyService = getTelephonyService();
+                    boolean incomingRinging = false;
+                    if (telephonyService != null) {
+                        try {
+                            incomingRinging = telephonyService.isRinging();
+
+                            if ((mRingMenuBehavior
+                                & Settings.System.RING_MENU_BUTTON_BEHAVIOR_ANSWER) != 0
+                                && incomingRinging) {
+
+                                try {
+                                    telephonyService.answerRingingCall();
+                                } catch (RemoteException ex) {
+                                    Log.w(TAG, "ITelephony threw RemoteException" + ex);
+                                }
                             }
+                        } catch (RemoteException ex) {
+                            Log.w(TAG, "ITelephony threw RemoteException", ex);
                         }
                     }
                 }
                 break;
             }
+
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_MUTE: {

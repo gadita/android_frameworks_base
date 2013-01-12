@@ -1200,14 +1200,38 @@ public final class Settings {
          * INCALL_BACK_BUTTON_BEHAVIOR default value.
          * @hide
          */
-        public static final int INCALL_BACK_BUTTON_BEHAVIOR_DEFAULT =	4838
+        public static final int INCALL_BACK_BUTTON_BEHAVIOR_DEFAULT =
                 INCALL_BACK_BUTTON_BEHAVIOR_BACK;
 
         /**
-         * Home button answers call
+         * What happens when the user presses the Menu button when the
+         * phone is ringing.<br/>
+         * <b>Values:</b><br/>
+         * 1 - Nothing happens. (Default behavior)<br/>
+         * 2 - The Menu button answer the current call.<br/>
+         *
          * @hide
          */
-        public static final String HOME_BUTTON_ANSWERS_CALL = "home_button_answers_call";
+        public static final String RING_MENU_BUTTON_BEHAVIOR = "ring_menu_button_behavior";
+
+        /**
+         * RING_MENU_BUTTON_BEHAVIOR value for "do nothing".
+         * @hide
+         */
+        public static final int RING_MENU_BUTTON_BEHAVIOR_DO_NOTHING = 0x1;
+
+        /**
+         * RING_MENU_BUTTON_BEHAVIOR value for "answer".
+         * @hide
+         */
+        public static final int RING_MENU_BUTTON_BEHAVIOR_ANSWER = 0x2;
+
+        /**
+         * RING_MENU_BUTTON_BEHAVIOR default value.
+         * @hide
+         */
+        public static final int RING_MENU_BUTTON_BEHAVIOR_DEFAULT =
+                RING_MENU_BUTTON_BEHAVIOR_DO_NOTHING;
 
         /**
          * Reboot show/hide
