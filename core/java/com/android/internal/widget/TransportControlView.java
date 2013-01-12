@@ -311,7 +311,6 @@ public class TransportControlView extends FrameLayout implements OnClickListener
         }
 
         mAlbumArt.setImageBitmap(mMetadata.bitmap);
-        mAlbumArt.setAlpha(0.5f);
         final int flags = mTransportControlFlags;
         setVisibilityBasedOnFlag(mBtnPrev, flags, RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS);
         setVisibilityBasedOnFlag(mBtnNext, flags, RemoteControlClient.FLAG_KEY_MEDIA_NEXT);
