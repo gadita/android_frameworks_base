@@ -385,6 +385,7 @@
     <string name="accessibility_clear_all">Clear all notifications.</string>
 
     <string name="recent_apps_title">Recent apps</string>
+    <string name="recents_kill_all_button_text">Kill all</string>
 
     <!-- Description of the desk dock action that invokes the Android Dreams screen saver feature -->
     <string name="dreams_dock_launcher">Activate screen saver</string>
