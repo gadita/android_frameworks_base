@@ -113,14 +113,22 @@ public class BrightnessButton extends PowerButton {
             mCurrentBacklightIndex = 0;
         }
 
+        File f = new File("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode");
+        String modeFile = "";
+
+        if (f.isFile() && f.canRead())
+            modeFile = "/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode";
+        else
+            modeFile = "/sys/devices/i2c-0/0-0036/mode";
+
         int backlightIndex = mBacklightValues[mCurrentBacklightIndex];
         if (backlightIndex > BACKLIGHTS.length - 1) {
-            writeOneLine("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode", "i2c_pwm");
+            writeOneLine(modeFile, "i2c_pwm");
             Settings.System.putInt(resolver, Settings.System.SCREEN_RAISED_BRIGHTNESS, 1);
             backlightIndex = BACKLIGHTS.length - 1;
         }
         else if (backlightIndex == 1) {
-            writeOneLine("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode", "i2c_pwm_als");
+            writeOneLine(modeFile, "i2c_pwm_als");
             Settings.System.putInt(resolver, Settings.System.SCREEN_RAISED_BRIGHTNESS, 0);
         }
 
