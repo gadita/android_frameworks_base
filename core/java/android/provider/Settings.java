@@ -1234,6 +1234,13 @@ public final class Settings {
                 RING_MENU_BUTTON_BEHAVIOR_DO_NOTHING;
 
         /**
+         * in dialer when phone is picked up, it calls the number
+         *
+         * @hide
+         */
+        public static final String PICK_UP_TO_CALL = "pick_up_to_call";
+
+        /**
          * Reboot show/hide
          * @hide
          */
