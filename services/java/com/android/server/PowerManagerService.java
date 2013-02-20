@@ -572,10 +572,6 @@ public class PowerManagerService extends IPowerManager.Stub
                 if (mWindowScaleAnimation > 0.5f) {
                     mAnimationSetting |= ANIM_SETTING_OFF;
                 }
-                if (transitionScale > 0.5f) {
-                    // Uncomment this if you want the screen-on animation.
-                    mAnimationSetting |= ANIM_SETTING_ON;
-                }
             }
         }
     }
