@@ -122,6 +122,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
     private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
 
+    private int mJBMPColor = Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_TEXT_COLOR, COLOR_WHITE);
+
     // Is there a vibrator
     private final boolean mHasVibrator;
 
@@ -698,7 +700,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             mJBMPleft.setText("JBMP " + android.os.SystemProperties.get("ro.modversion"));
         else
             mJBMPleft.setText("JB Mini Project " + android.os.SystemProperties.get("ro.modversion"));
-        mJBMPleft.setTextColor(0xffffffff);
+        mJBMPleft.setTextColor(mJBMPColor);
         this.addView(mJBMPleft);
 
         mJBMPright = new TextView(context);
@@ -710,7 +712,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         mJBMPright.setLayoutParams(lp);
         mJBMPright.setVisibility(View.VISIBLE);
         mJBMPright.setText("Old Xperia Team");
-        mJBMPright.setTextColor(0xffffffff);
+        mJBMPright.setTextColor(mJBMPColor);
         this.addView(mJBMPright);
 
         if (DBG) Log.v(TAG, "*** LockScreen accel is "
