@@ -35,13 +35,10 @@ static jint DBG = false;
 
 static int doCommand(const char *ifname, const char *cmd, char *replybuf, int replybuflen)
 {
-    int err=-1;
     size_t reply_len = replybuflen - 1;
 
-    if ((err = ::wifi_command(ifname, cmd, replybuf, &reply_len)) != 0) {
-        ALOGE("ERR %d, returns -1", err);
+    if (::wifi_command(ifname, cmd, replybuf, &reply_len) != 0)
         return -1;
-    }
     else {
         // Strip off trailing newline
         if (reply_len > 0 && replybuf[reply_len-1] == '\n')
@@ -118,21 +115,6 @@ static jboolean android_net_wifi_loadDriver(JNIEnv* env, jobject)
 static jboolean android_net_wifi_unloadDriver(JNIEnv* env, jobject)
 {
     return (jboolean)(::wifi_unload_driver() == 0);
-}
-
-static jboolean android_net_wifi_isHotspotDriverLoaded(JNIEnv* env, jobject)
-{
-    return (jboolean)(::is_wifi_hotspot_driver_loaded() == 1);
-}
-
-static jboolean android_net_wifi_loadHotspotDriver(JNIEnv* env, jobject)
-{
-    return (jboolean)(::wifi_load_hotspot_driver() == 0);
-}
-
-static jboolean android_net_wifi_unloadHotspotDriver(JNIEnv* env, jobject)
-{
-    return (jboolean)(::wifi_unload_hotspot_driver() == 0);
 }
 
 static jboolean android_net_wifi_startSupplicant(JNIEnv* env, jobject, jboolean p2pSupported)
@@ -221,9 +203,6 @@ static JNINativeMethod gWifiMethods[] = {
     { "loadDriver", "()Z",  (void *)android_net_wifi_loadDriver },
     { "isDriverLoaded", "()Z",  (void *)android_net_wifi_isDriverLoaded },
     { "unloadDriver", "()Z",  (void *)android_net_wifi_unloadDriver },
-    { "loadHotspotDriver", "()Z",  (void *)android_net_wifi_loadHotspotDriver },
-    { "isHotspotDriverLoaded", "()Z",  (void *)android_net_wifi_isHotspotDriverLoaded},
-    { "unloadHotspotDriver", "()Z",  (void *)android_net_wifi_unloadHotspotDriver },
     { "startSupplicant", "(Z)Z",  (void *)android_net_wifi_startSupplicant },
     { "killSupplicant", "()Z",  (void *)android_net_wifi_killSupplicant },
     { "connectToSupplicant", "(Ljava/lang/String;)Z",

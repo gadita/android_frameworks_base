@@ -111,7 +111,7 @@ public class WifiStateMachine extends StateMachine {
     private static final boolean DBG = false;
 
     /* TODO: This is no more used with the hostapd code. Clean up */
-    private String mSoftApIface;
+    private static final String SOFTAP_IFACE = "wl0.1";
 
     private WifiMonitor mWifiMonitor;
     private WifiNative mWifiNative;
@@ -608,8 +608,6 @@ public class WifiStateMachine extends StateMachine {
 
         mPrimaryDeviceType = mContext.getResources().getString(
                 com.android.internal.R.string.config_wifi_p2p_device_type);
-
-        mSoftApIface = SystemProperties.get("wifi.ap.interface", "wl0.1");
 
         mContext.registerReceiver(
             new BroadcastReceiver() {
@@ -1216,12 +1214,10 @@ public class WifiStateMachine extends StateMachine {
 
         String[] wifiRegexs = mCm.getTetherableWifiRegexs();
 
-        log("startTethering...");
         for (String intf : available) {
             for (String regex : wifiRegexs) {
                 if (intf.matches(regex)) {
 
-                    log("Trying tethering on " + intf);
                     InterfaceConfiguration ifcg = null;
                     try {
                         ifcg = mNwService.getInterfaceConfig(intf);
@@ -1813,16 +1809,12 @@ public class WifiStateMachine extends StateMachine {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    mNwService.startAccessPoint(config, mInterfaceName, mSoftApIface);
+                    mNwService.startAccessPoint(config, mInterfaceName, SOFTAP_IFACE);
                 } catch (Exception e) {
                     loge("Exception in softap start " + e);
                     try {
                         mNwService.stopAccessPoint(mInterfaceName);
-                    } catch (Exception e0) {}
-                    try {
-                        log("startAccessPoint iface="+mInterfaceName+", ap="+mSoftApIface);
-                        mNwService.startAccessPoint(config, mInterfaceName, mSoftApIface);
-
+                        mNwService.startAccessPoint(config, mInterfaceName, SOFTAP_IFACE);
                     } catch (Exception e1) {
                         loge("Exception in softap re-start " + e1);
                         sendMessage(CMD_START_AP_FAILURE);
@@ -1919,8 +1911,6 @@ public class WifiStateMachine extends StateMachine {
                 case DhcpStateMachine.CMD_PRE_DHCP_ACTION:
                 case DhcpStateMachine.CMD_POST_DHCP_ACTION:
                 /* Handled by WifiApConfigStore */
-                case CMD_LOAD_DRIVER_SUCCESS:
-                case CMD_LOAD_DRIVER_FAILURE:
                 case CMD_SET_AP_CONFIG:
                 case CMD_SET_AP_CONFIG_COMPLETED:
                 case CMD_REQUEST_AP_CONFIG:
@@ -2035,21 +2025,6 @@ public class WifiStateMachine extends StateMachine {
                             setWifiApState(WIFI_AP_STATE_ENABLING);
                             break;
                     }
-                    boolean loaded;
-                    if (SystemProperties.getBoolean("wifi.hotspot.ti", false)
-                           && message.arg1 == WIFI_AP_STATE_ENABLING) {
-                    log("Loading Hotspot Driver (via libhardware_legacy)\n");
-                    loaded = WifiNative.loadHotspotDriver();
-                    if(loaded) {
-                                log("Driver load successful");
-                                sendMessage(CMD_LOAD_DRIVER_SUCCESS);
-                            } else {
-                                log("Failed to load driver!");
-                                setWifiState(WIFI_STATE_UNKNOWN);
-                                sendMessage(CMD_LOAD_DRIVER_FAILURE);
-                            }
-                    }
-                    else {
 
                     if(mWifiNative.loadDriver()) {
                         if (DBG) log("Driver load successful");
@@ -2065,7 +2040,6 @@ public class WifiStateMachine extends StateMachine {
                                 break;
                         }
                         sendMessage(CMD_LOAD_DRIVER_FAILURE);
-                    }
                     }
                     mWakeLock.release();
                 }
