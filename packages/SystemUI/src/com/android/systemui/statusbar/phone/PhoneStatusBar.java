@@ -660,7 +660,8 @@ public class PhoneStatusBar extends BaseStatusBar {
 
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                if ((Settings.System.getInt(mContext.getContentResolver(), Settings.System.NOTIFICATION_SHOW_WIFI_SSID, 0) == 1) &&
+                if (Settings.System.getBoolean(mContext.getContentResolver(),
+                        Settings.System.NOTIFICATION_SHOW_WIFI_SSID, false) &&
                         count > 0) {
                     mWifiView.setVisibility(View.VISIBLE);
                 } else {
