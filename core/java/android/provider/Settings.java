@@ -3130,6 +3130,12 @@ public final class Settings {
          public static final String KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action";
 
          /**
+          * Swap volume buttons when the screen is rotated by 90 or 180 degrees
+          * @hide
+          */
+         public static final String SWAP_VOLUME_KEYS_BY_ROTATE = "swap_volume_keys_by_rotate";
+
+         /**
           * Action to perform when the app switch key is pressed. (Default is 2)
           * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
           * @hide
