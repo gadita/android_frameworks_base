@@ -129,6 +129,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     TextView mForegroundProcessText;
 
     ActivityManager mAm;
+    ActivityManager.MemoryInfo mMemInfo;
 
     RunningState mState;
 
@@ -973,6 +974,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
 
     private void UpdateRamBar() {
         mAm = (ActivityManager)getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        mMemInfo = new ActivityManager.MemoryInfo(); 
         mState = RunningState.getInstance(getContext());
 
         mRamUsageBar = (LinearColorBar) findViewById(R.id.ram_usage_bar);
@@ -986,9 +988,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
         mForegroundProcessText = (TextView)findViewById(R.id.foregroundText);
         mBackgroundProcessText = (TextView)findViewById(R.id.backgroundText);
 
-        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-        mAm.getMemoryInfo(memInfo);
-        SECONDARY_SERVER_MEM = memInfo.secondaryServerThreshold;
+        mAm.getMemoryInfo(mMemInfo);
+        long secServerMem = mMemInfo.secondaryServerThreshold; 
         mMemInfoReader.readMemInfo();
         long availMem = mMemInfoReader.getFreeSize() + mMemInfoReader.getCachedSize() - SECONDARY_SERVER_MEM;
 
