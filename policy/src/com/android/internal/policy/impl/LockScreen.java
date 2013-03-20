@@ -669,6 +669,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         } else {
             if (!mUseSlider && !mUseRotary)
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
+            else
+                inflater.inflate(R.layout.keyguard_screen_tab_unlock, this, true);
         }
 
         setBackground(mContext, (ViewGroup) findViewById(R.id.root));
