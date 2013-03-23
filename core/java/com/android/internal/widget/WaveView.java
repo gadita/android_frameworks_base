@@ -44,8 +44,8 @@ public class WaveView extends View implements ValueAnimator.AnimatorUpdateListen
     private static final String TAG = "WaveView";
     private static final boolean DBG = false;
     private static final int WAVE_COUNT = 20; // default wave count
-    private static final long VIBRATE_SHORT = 20;  // msec
-    private static final long VIBRATE_LONG = 20;  // msec
+    private static final long VIBRATE_SHORT = 30;  // msec
+    private static final long VIBRATE_LONG = 40;  // msec
 
     // Lock state machine states
     private static final int STATE_RESET_LOCK = 0;
