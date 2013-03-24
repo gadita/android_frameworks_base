@@ -84,6 +84,9 @@ public class SlidingTab extends ViewGroup {
     private boolean mAnimating;
     private final Rect mTmpRect;
 
+    // controls to use XperiaS or GB style
+    private boolean mXperiaS = false;
+
     /**
      * Listener used to reset the view when the current animation completes.
      */
@@ -454,14 +457,25 @@ public class SlidingTab extends ViewGroup {
         mDensity = r.getDisplayMetrics().density;
         if (DBG) log("- Density: " + mDensity);
 
-        mLeftSlider = new Slider(this,
-                R.drawable.jog_tab_left_generic,
-                R.drawable.jog_tab_bar_left_generic,
-                R.drawable.jog_tab_target_gray);
-        mRightSlider = new Slider(this,
-                R.drawable.jog_tab_right_generic,
-                R.drawable.jog_tab_bar_right_generic,
-                R.drawable.jog_tab_target_gray);
+        if(mXperiaS) {
+            mLeftSlider = new Slider(this,
+                    R.drawable.jog_tab_left_generic_xperia,
+                    R.drawable.jog_tab_bar_left_generic_xperia,
+                    R.drawable.jog_tab_target_gray_xperia);
+            mRightSlider = new Slider(this,
+                    R.drawable.jog_tab_right_generic_xperia,
+                    R.drawable.jog_tab_bar_right_generic_xperia,
+                    R.drawable.jog_tab_target_gray_xperia);
+        } else {
+            mLeftSlider = new Slider(this,
+                    R.drawable.jog_tab_left_generic,
+                    R.drawable.jog_tab_bar_left_generic,
+                    R.drawable.jog_tab_target_gray);
+            mRightSlider = new Slider(this,
+                    R.drawable.jog_tab_right_generic,
+                    R.drawable.jog_tab_bar_right_generic,
+                    R.drawable.jog_tab_target_gray);
+        }
 
         // setBackgroundColor(0x80808080);
     }
@@ -860,6 +874,11 @@ public class SlidingTab extends ViewGroup {
                 mOnTriggerListener.onGrabbedStateChange(this, mGrabbedState);
             }
         }
+    }
+
+    // Use this to set XperiaS or GB style
+    public void XperiaS(boolean changeMe) {
+        mXperiaS = changeMe;
     }
 
     private void log(String msg) {

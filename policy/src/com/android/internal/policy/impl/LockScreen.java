@@ -118,6 +118,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
 
     private boolean mUseSlider = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 1);
     private boolean mUseRotary = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 2);
+    private boolean mUseXperiaS = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 3);
 
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
     private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
@@ -178,16 +179,29 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             boolean vibe = mSilentMode
                 && (mAudioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE);
 
-            mSlidingTab.setRightTabResources(
-                    mSilentMode ? ( vibe ? R.drawable.ic_jog_dial_vibrate_on
-                                         : R.drawable.ic_jog_dial_sound_off )
-                                : R.drawable.ic_jog_dial_sound_on,
-                    mSilentMode ? R.drawable.jog_tab_target_yellow
-                                : R.drawable.jog_tab_target_gray,
-                    mSilentMode ? R.drawable.jog_tab_bar_right_sound_on
-                                : R.drawable.jog_tab_bar_right_sound_off,
-                    mSilentMode ? R.drawable.jog_tab_right_sound_on
-                                : R.drawable.jog_tab_right_sound_off);
+            if(mUseXperiaS) {
+                mSlidingTab.setRightTabResources(
+                        mSilentMode ? ( vibe ? R.drawable.ic_jog_dial_vibrate_on_xperia
+                                             : R.drawable.ic_jog_dial_sound_off_xperia )
+                                    : R.drawable.ic_jog_dial_sound_on_xperia,
+                        mSilentMode ? R.drawable.jog_tab_target_yellow_xperia
+                                    : R.drawable.jog_tab_target_gray_xperia,
+                        mSilentMode ? R.drawable.jog_tab_bar_right_sound_on_xperia
+                                    : R.drawable.jog_tab_bar_right_sound_off_xperia,
+                        mSilentMode ? R.drawable.jog_tab_right_sound_on_xperia
+                                    : R.drawable.jog_tab_right_sound_off_xperia);
+            } else {
+                mSlidingTab.setRightTabResources(
+                        mSilentMode ? ( vibe ? R.drawable.ic_jog_dial_vibrate_on
+                                             : R.drawable.ic_jog_dial_sound_off )
+                                    : R.drawable.ic_jog_dial_sound_on,
+                        mSilentMode ? R.drawable.jog_tab_target_yellow
+                                    : R.drawable.jog_tab_target_gray,
+                        mSilentMode ? R.drawable.jog_tab_bar_right_sound_on
+                                    : R.drawable.jog_tab_bar_right_sound_off,
+                        mSilentMode ? R.drawable.jog_tab_right_sound_on
+                                    : R.drawable.jog_tab_right_sound_off);
+            }
         }
 
         /** {@inheritDoc} */
@@ -664,6 +678,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_slider_unlock, this, true);
             else if (mUseRotary)
                 inflater.inflate(R.layout.keyguard_screen_rotary_unlock, this, true);
+            else if (mUseXperiaS)
+                inflater.inflate(R.layout.keyguard_screen_xperias_unlock, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock, this, true);
         } else {
@@ -671,6 +687,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_slider_unlock_land, this, true);
             else if (mUseRotary)
                 inflater.inflate(R.layout.keyguard_screen_rotary_unlock_land, this, true);
+            else if (mUseXperiaS)
+                inflater.inflate(R.layout.keyguard_screen_xperias_unlock_land, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
         }
@@ -729,11 +747,23 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             slidingTabView.setHoldAfterTrigger(true, false);
             if (!mHideHint)
                 slidingTabView.setLeftHintText(R.string.lockscreen_unlock_label);
-            slidingTabView.setLeftTabResources(
+
+            if (mUseXperiaS) {
+                slidingTabView.setLeftTabResources(
+                    R.drawable.ic_jog_dial_unlock_xperia,
+                    R.drawable.jog_tab_target_green_xperia,
+                    R.drawable.jog_tab_bar_left_unlock_xperia,
+                    R.drawable.jog_tab_left_unlock_xperia
+                );
+                slidingTabView.XperiaS(true);
+            } else {
+                slidingTabView.setLeftTabResources(
                     R.drawable.ic_jog_dial_unlock,
                     R.drawable.jog_tab_target_green,
                     R.drawable.jog_tab_bar_left_unlock,
-                    R.drawable.jog_tab_left_unlock);
+                    R.drawable.jog_tab_left_unlock
+                );
+            }
             SlidingTabMethods slidingTabMethods = new SlidingTabMethods(slidingTabView);
             slidingTabView.setOnTriggerListener(slidingTabMethods);
             return slidingTabMethods;
