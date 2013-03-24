@@ -221,7 +221,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         public void onGrabbedStateChange(View v, int grabbedState) {
             if (grabbedState == SlidingTab.OnTriggerListener.RIGHT_HANDLE) {
                 mSilentMode = isSilentMode();
-                if (!mHideHint)
+                if (!mHideHint && !mUseXperiaS)
                     mSlidingTab.setRightHintText(mSilentMode ? R.string.lockscreen_sound_on_label : R.string.lockscreen_sound_off_label);
             }
             // Don't poke the wake lock when returning to a state where the handle is
@@ -745,7 +745,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
         if (unlockWidget instanceof SlidingTab) {
             SlidingTab slidingTabView = (SlidingTab) unlockWidget;
             slidingTabView.setHoldAfterTrigger(true, false);
-            if (!mHideHint)
+            if (!mHideHint && !mUseXperiaS)
                 slidingTabView.setLeftHintText(R.string.lockscreen_unlock_label);
 
             if (mUseXperiaS) {
