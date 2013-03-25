@@ -84,7 +84,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
     private static final boolean DEBUG = DBG;
     private static final String TAG = "LockScreen";
     private static final String ENABLE_MENU_KEY_FILE = "/data/local/enable_menu_key";
-    private static final int WAIT_FOR_ANIMATION_TIMEOUT = 0;
+    private static final int WAIT_FOR_ANIMATION_TIMEOUT = 500;
     private static final int STAY_ON_WHILE_GRABBED_TIMEOUT = 30000;
     private static final String ASSIST_ICON_METADATA_NAME =
             "com.android.systemui.action_assist_icon";
@@ -119,6 +119,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
     private boolean mUseSlider = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 1);
     private boolean mUseRotary = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 2);
     private boolean mUseXperiaS = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 3);
+    private boolean mUseSGS = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 4);
 
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
     private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
@@ -680,6 +681,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_rotary_unlock, this, true);
             else if (mUseXperiaS)
                 inflater.inflate(R.layout.keyguard_screen_xperias_unlock, this, true);
+            else if (mUseSGS)
+                inflater.inflate(R.layout.keyguard_screen_sgs_unlock, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock, this, true);
         } else {
@@ -689,6 +692,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_rotary_unlock_land, this, true);
             else if (mUseXperiaS)
                 inflater.inflate(R.layout.keyguard_screen_xperias_unlock_land, this, true);
+            else if (mUseSGS)
+                inflater.inflate(R.layout.keyguard_screen_sgs_unlock_land, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
         }
