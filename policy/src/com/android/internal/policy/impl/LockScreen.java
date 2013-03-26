@@ -693,7 +693,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             else if (mUseXperiaS)
                 inflater.inflate(R.layout.keyguard_screen_xperias_unlock_land, this, true);
             else if (mUseSGS)
-                inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
+                inflater.inflate(R.layout.keyguard_screen_sgs_unlock_land, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
         }
