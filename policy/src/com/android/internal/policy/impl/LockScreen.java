@@ -65,6 +65,7 @@ import com.android.internal.widget.LockPatternUtils;
 import com.android.internal.widget.RotarySelector;
 import com.android.internal.widget.SlidingTab;
 import com.android.internal.widget.WaveView;
+import com.android.internal.widget.SenseView;
 import com.android.internal.widget.multiwaveview.GlowPadView;
 import com.android.internal.widget.multiwaveview.TargetDrawable;
 
@@ -120,6 +121,7 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
     private boolean mUseRotary = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 2);
     private boolean mUseXperiaS = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 3);
     private boolean mUseSGS = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 4);
+    private boolean mUseSense = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_STYLE, 0) == 5);
 
     private boolean mHideArrows = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_ARROWS, 0) == 1);
     private boolean mHideHint = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.LOCKSCREEN_HIDE_HINT, 0) == 1);
@@ -287,6 +289,43 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             mRotarySelector.reset();
         }
 
+        public void ping() {
+        }
+    }
+
+    class SenseViewMethods implements SenseView.OnTriggerListener, UnlockWidgetCommonMethods {
+
+        private final SenseView mSenseView;
+
+        SenseViewMethods(SenseView senseView) {
+            mSenseView = senseView;
+        }
+        /** {@inheritDoc} */
+        public void onTrigger(View v, int whichHandle) {
+            if (whichHandle == SenseView.OnTriggerListener.CENTER_HANDLE) {
+                requestUnlockScreen();
+            }
+        }
+
+        /** {@inheritDoc} */
+        public void onGrabbedStateChange(View v, int grabbedState) {
+            // Don't poke the wake lock when returning to a state where the handle is
+            // not grabbed since that can happen when the system (instead of the user)
+            // cancels the grab.
+            if (grabbedState == SenseView.OnTriggerListener.CENTER_HANDLE) {
+                mCallback.pokeWakelock(STAY_ON_WHILE_GRABBED_TIMEOUT);
+            }
+        }
+
+        public void updateResources() {
+        }
+
+        public View getView() {
+            return mSenseView;
+        }
+        public void reset(boolean animate) {
+            mSenseView.reset();
+        }
         public void ping() {
         }
     }
@@ -683,6 +722,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_xperias_unlock, this, true);
             else if (mUseSGS)
                 inflater.inflate(R.layout.keyguard_screen_sgs_unlock, this, true);
+            else if (mUseSense)
+                inflater.inflate(R.layout.keyguard_screen_sense_unlock, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock, this, true);
         } else {
@@ -694,6 +735,8 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
                 inflater.inflate(R.layout.keyguard_screen_xperias_unlock_land, this, true);
             else if (mUseSGS)
                 inflater.inflate(R.layout.keyguard_screen_sgs_unlock_land, this, true);
+            else if (mUseSense)
+                inflater.inflate(R.layout.keyguard_screen_sense_unlock_land, this, true);
             else
                 inflater.inflate(R.layout.keyguard_screen_tab_unlock_land, this, true);
         }
@@ -781,6 +824,11 @@ class LockScreen extends RelativeLayout implements KeyguardScreen {
             RotarySelectorMethods rotarySelectorMethods = new RotarySelectorMethods(rotarySelectorView);
             rotarySelectorView.setOnDialTriggerListener(rotarySelectorMethods);
             return rotarySelectorMethods;
+        } else if (unlockWidget instanceof SenseView) {
+            SenseView senseView = (SenseView) unlockWidget;
+            SenseViewMethods senseViewMethods = new SenseViewMethods(senseView);
+            senseView.setOnTriggerListener(senseViewMethods);
+            return senseViewMethods;
         } else if (unlockWidget instanceof WaveView) {
             WaveView waveView = (WaveView) unlockWidget;
             WaveViewMethods waveViewMethods = new WaveViewMethods(waveView);

@@ -1272,6 +1272,10 @@
   <java-symbol type="drawable" name="unlock_halo" />
   <java-symbol type="drawable" name="unlock_ring" />
   <java-symbol type="drawable" name="unlock_wave" />
+  <java-symbol type="drawable" name="unlock_default_sense" />
+  <java-symbol type="drawable" name="unlock_halo_sense" />
+  <java-symbol type="drawable" name="unlock_ring_sense" />
+  <java-symbol type="drawable" name="unlock_wave_sense" />
   <java-symbol type="id" name="action_mode_bar_stub" />
   <java-symbol type="id" name="alarm_status" />
   <java-symbol type="id" name="backspace" />
@@ -1354,6 +1358,8 @@
   <java-symbol type="layout" name="keyguard_screen_xperias_unlock_land" />
   <java-symbol type="layout" name="keyguard_screen_sgs_unlock" />
   <java-symbol type="layout" name="keyguard_screen_sgs_unlock_land" />
+  <java-symbol type="layout" name="keyguard_screen_sense_unlock" />
+  <java-symbol type="layout" name="keyguard_screen_sense_unlock_land" />
   <java-symbol type="layout" name="recent_apps_dialog" />
   <java-symbol type="layout" name="screen_action_bar" />
   <java-symbol type="layout" name="screen_action_bar_overlay" />
