@@ -120,7 +120,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:paddingLeft="8dip"
-            android:paddingRight="8dip" 
+            android:paddingRight="8dip"
             android:src="@android:drawable/ic_dialog_alert" />
 
         <RelativeLayout
