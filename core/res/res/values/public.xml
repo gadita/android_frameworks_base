@@ -1267,6 +1267,7 @@
   <java-symbol type="drawable" name="menu_background" />
   <java-symbol type="drawable" name="stat_sys_secure" />
   <java-symbol type="drawable" name="xslbg" />
+  <java-symbol type="drawable" name="xslbgl" />
   <java-symbol type="drawable" name="unlock_default" />
   <java-symbol type="drawable" name="unlock_halo" />
   <java-symbol type="drawable" name="unlock_ring" />

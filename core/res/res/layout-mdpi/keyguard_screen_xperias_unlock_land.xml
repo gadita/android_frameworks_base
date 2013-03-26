@@ -27,7 +27,8 @@
     android:orientation="vertical"
     android:rowCount="7"
     android:id="@+id/root"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    android:background="@drawable/xslbgl">
 
     <!-- Column 0 -->
     <com.android.internal.widget.DigitalClock android:id="@+id/time"
@@ -237,7 +238,9 @@
         android:layout_width="200dip"
         android:layout_height="match_parent"
         android:layout_rowSpan="7"
-        android:gravity="left|center_vertical"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dip"
         android:focusable="true"
         />
 
